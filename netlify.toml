@@ -1,0 +1,25 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Netlify Functions v2 declares its own path via `export const config`,
+# these keep the same URLs working if that is ever turned off.
+[[redirects]]
+  from = "/api/targets"
+  to = "/.netlify/functions/targets"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/api/imports"
+  to = "/.netlify/functions/imports"
+  status = 200
+  force = false
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
